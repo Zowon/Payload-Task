@@ -2,6 +2,13 @@
 
 A take-home blog platform built with Payload CMS 3.x, Next.js App Router, PostgreSQL (Neon), and Cloudinary.
 
+## Live Demo
+
+| | URL |
+|---|---|
+| Blog | https://payload-task-byteshifted.vercel.app/blog |
+| Admin | https://payload-task-byteshifted.vercel.app/admin/login |
+
 ## Stack
 
 | Layer | Technology |
