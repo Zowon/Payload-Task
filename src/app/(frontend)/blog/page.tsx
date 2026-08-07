@@ -6,6 +6,11 @@ import configPromise from '@payload-config'
 import type { Media, Post } from '@/payload-types'
 import { formatDate } from '@/lib/formatDate'
 
+// Force dynamic rendering so new posts appear immediately without a redeploy.
+// Without this, Next.js caches the page at build time and visitors see
+// stale data until the next deployment.
+export const dynamic = 'force-dynamic'
+
 export const metadata: Metadata = {
   title: 'Blog',
   description: 'Read our latest articles and updates.',

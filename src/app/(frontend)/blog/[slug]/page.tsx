@@ -8,6 +8,10 @@ import type { Media } from '@/payload-types'
 import { BlockRenderer } from '@/components/blocks/BlockRenderer'
 import { formatDate } from '@/lib/formatDate'
 
+// Force dynamic rendering so post content and publish status
+// are always up to date without requiring a redeploy.
+export const dynamic = 'force-dynamic'
+
 type Props = {
   params: Promise<{ slug: string }>
 }
