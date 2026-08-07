@@ -1,12 +1,16 @@
 import React from 'react'
+import './styles.css'
 
 export const metadata = {
-  title: 'Interview Assignment',
+  title: {
+    default: 'Blog',
+    template: '%s | Blog',
+  },
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function FrontendLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body>{children}</body>
     </html>
   )
