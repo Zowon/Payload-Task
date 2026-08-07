@@ -13,20 +13,24 @@ export function HeroBlock({ heading, subheading, backgroundImage }: HeroBlockPro
 
   return (
     <section style={styles.hero}>
+      {/* Image sits as an absolute fill behind the content */}
       {image?.url && (
-        <div style={styles.bgWrapper}>
+        <>
           <Image
             src={image.url}
-            alt={image.alt ?? heading}
+            alt=""
             fill
-            sizes="100vw"
-            style={{ objectFit: 'cover' }}
+            sizes="(max-width: 768px) 100vw, 860px"
+            style={{ objectFit: 'cover', zIndex: 0 }}
             priority
           />
-          <div style={styles.bgOverlay} />
-        </div>
+          {/* Dark overlay so text is always readable */}
+          <div style={styles.overlay} />
+        </>
       )}
-      <div style={{ ...styles.content, ...(image?.url ? styles.contentOnImage : {}) }}>
+
+      {/* Text content sits above the image via zIndex */}
+      <div style={{ ...styles.content, color: image?.url ? '#fff' : '#1a1a1a' }}>
         <h2 style={styles.heading}>{heading}</h2>
         {subheading && <p style={styles.subheading}>{subheading}</p>}
       </div>
@@ -39,38 +43,35 @@ const styles = {
     position: 'relative' as const,
     borderRadius: '8px',
     overflow: 'hidden',
-    minHeight: '320px',
+    minHeight: '360px',
     display: 'flex',
     alignItems: 'center',
     background: '#1a1a1a',
   },
-  bgWrapper: {
+  overlay: {
     position: 'absolute' as const,
     inset: 0,
-  },
-  bgOverlay: {
-    position: 'absolute' as const,
-    inset: 0,
-    background: 'rgba(0,0,0,0.45)',
+    background: 'rgba(0,0,0,0.5)',
+    zIndex: 1,
   },
   content: {
     position: 'relative' as const,
-    zIndex: 1,
-    padding: '3rem 2rem',
-  },
-  contentOnImage: {
-    color: '#fff',
+    zIndex: 2,
+    padding: '3rem 2.5rem',
+    maxWidth: '700px',
   },
   heading: {
     fontSize: '2rem',
-    fontWeight: 700,
+    fontWeight: 800,
     lineHeight: 1.2,
     marginBottom: '0.75rem',
     color: 'inherit',
+    letterSpacing: '-0.02em',
   },
   subheading: {
     fontSize: '1.1rem',
     lineHeight: 1.6,
     opacity: 0.9,
+    color: 'inherit',
   },
 }
