@@ -1,3 +1,5 @@
+import { Navbar } from '@/components/Navbar'
+import { Footer } from '@/components/Footer'
 import './styles.css'
 
 export const metadata = {
@@ -10,7 +12,13 @@ export const metadata = {
 export default function FrontendLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body>{children}</body>
+      <body>
+        <div className="site-wrapper">
+          <Navbar />
+          <div className="site-content">{children}</div>
+          <Footer />
+        </div>
+      </body>
     </html>
   )
 }
