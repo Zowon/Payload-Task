@@ -10,7 +10,8 @@ out/
 build/
 
 # ── Payload generated ─────────────────────────────────────────
-src/app/(payload)/admin/importMap.js
+# importMap.js is generated at build time via `payload generate:importmap`
+# It is NOT gitignored — Vercel needs it present before next build runs
 
 # NOTE:
 # Keep src/payload-types.ts committed to Git.
@@ -57,3 +58,5 @@ pnpm-debug.log*
 # ── Deployment ────────────────────────────────────────────────
 .vercel/
 
+.vercel
+.env*
