@@ -1,17 +1,321 @@
+/* ── Reset ─────────────────────────────────────────────────────── */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
+/* ── Base ──────────────────────────────────────────────────────── */
 body {
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   color: #1a1a1a;
-  background: #f9f9f9;
+  background: #f5f5f4;
   line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
 }
 
 a {
   color: inherit;
   text-decoration: none;
+}
+
+/* Visible focus ring for keyboard users — applies to all interactive elements */
+:focus-visible {
+  outline: 2px solid #0066cc;
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ── Blog listing page ─────────────────────────────────────────── */
+.blog-listing {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 3.5rem 1.5rem 5rem;
+}
+
+.blog-listing__header {
+  margin-bottom: 3rem;
+  border-bottom: 1px solid #e5e5e5;
+  padding-bottom: 1.5rem;
+}
+
+.blog-listing__title {
+  font-size: 2.25rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin-bottom: 0.4rem;
+}
+
+.blog-listing__subtitle {
+  font-size: 1rem;
+  color: #737373;
+}
+
+.blog-listing__empty {
+  padding: 4rem 0;
+  text-align: center;
+  color: #737373;
+  font-size: 1rem;
+}
+
+.blog-listing__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.75rem;
+  list-style: none;
+}
+
+/* ── Post card ─────────────────────────────────────────────────── */
+.post-card {
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid #e8e8e8;
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.post-card:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Image container — fixed 16:9 ratio */
+.post-card__image-wrapper {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%;
+  background: #e8e8e8;
+  overflow: hidden;
+}
+
+.post-card__image {
+  object-fit: cover;
+}
+
+.post-card__image-placeholder {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #e8e8e8 0%, #d4d4d4 100%);
+}
+
+.post-card__body {
+  padding: 1.25rem 1.4rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.post-card__date {
+  font-size: 0.75rem;
+  color: #a3a3a3;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 500;
+}
+
+.post-card__title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.post-card__title-link {
+  color: #1a1a1a;
+  transition: color 0.1s ease;
+}
+
+.post-card__title-link:hover {
+  color: #0066cc;
+}
+
+.post-card__excerpt {
+  font-size: 0.9rem;
+  color: #525252;
+  line-height: 1.65;
+  flex: 1;
+
+  /* Clamp to 3 lines to keep cards uniform height */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.post-card__read-more {
+  margin-top: 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #0066cc;
+  align-self: flex-start;
+  transition: color 0.1s ease;
+}
+
+.post-card__read-more:hover {
+  color: #0052a3;
+}
+
+/* ── Blog post detail page ─────────────────────────────────────── */
+.post-page {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 5rem;
+}
+
+.post-page__nav {
+  margin-bottom: 2rem;
+}
+
+.post-page__back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #525252;
+  transition: color 0.1s ease;
+}
+
+.post-page__back-link:hover {
+  color: #0066cc;
+}
+
+.post-page__header {
+  margin-bottom: 2.5rem;
+}
+
+.post-page__date {
+  display: block;
+  font-size: 0.75rem;
+  color: #a3a3a3;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 500;
+  margin-bottom: 0.75rem;
+}
+
+.post-page__title {
+  font-size: clamp(1.75rem, 4vw, 2.75rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  margin-bottom: 1rem;
+}
+
+.post-page__excerpt {
+  font-size: 1.15rem;
+  color: #525252;
+  line-height: 1.7;
+  max-width: 65ch;
+  border-left: 3px solid #e5e5e5;
+  padding-left: 1rem;
+}
+
+/* Cover image — fixed height container with fill image */
+.post-page__cover-wrapper {
+  position: relative;
+  width: 100%;
+  padding-bottom: 52%;
+  background: #e8e8e8;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 3rem;
+}
+
+.post-page__cover-image {
+  object-fit: cover;
+}
+
+.post-page__content {
+  margin-top: 0.5rem;
+}
+
+/* ── Rich text output from Lexical ─────────────────────────────── */
+/* These selectors target the HTML output of @payloadcms/richtext-lexical/react */
+.post-page__content p {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: #2d2d2d;
+  margin-bottom: 1.25rem;
+  max-width: 72ch;
+}
+
+.post-page__content h1,
+.post-page__content h2,
+.post-page__content h3,
+.post-page__content h4 {
+  font-weight: 700;
+  line-height: 1.25;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.02em;
+}
+
+.post-page__content h2 { font-size: 1.5rem; }
+.post-page__content h3 { font-size: 1.25rem; }
+
+.post-page__content ul,
+.post-page__content ol {
+  padding-left: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.post-page__content li {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  margin-bottom: 0.25rem;
+}
+
+.post-page__content a {
+  color: #0066cc;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.post-page__content a:hover {
+  color: #0052a3;
+}
+
+.post-page__content strong { font-weight: 700; }
+.post-page__content em { font-style: italic; }
+
+.post-page__content blockquote {
+  border-left: 3px solid #e5e5e5;
+  padding-left: 1rem;
+  color: #525252;
+  margin: 1.5rem 0;
+}
+
+.post-page__content code {
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 0.9em;
+  background: #f3f3f3;
+  padding: 0.1em 0.35em;
+  border-radius: 3px;
+}
+
+/* ── Responsive ────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .blog-listing {
+    padding: 2rem 1rem 3rem;
+  }
+
+  .blog-listing__title {
+    font-size: 1.75rem;
+  }
+
+  .blog-listing__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .post-page {
+    padding: 1.5rem 1rem 3rem;
+  }
+
+  .post-page__excerpt {
+    font-size: 1rem;
+  }
 }
