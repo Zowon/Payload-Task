@@ -180,6 +180,85 @@ export interface Post {
   slug: string;
   publishedDate?: string | null;
   coverImage?: (number | null) | Media;
+  /**
+   * Build the post body by adding, reordering, and removing blocks.
+   */
+  content: (
+    | {
+        /**
+         * Main headline displayed prominently in the hero.
+         */
+        heading: string;
+        /**
+         * Optional supporting text beneath the heading.
+         */
+        subheading?: string | null;
+        /**
+         * Optional full-width background image.
+         */
+        backgroundImage?: (number | null) | Media;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'hero';
+      }
+    | {
+        /**
+         * Optional section heading above the body text.
+         */
+        heading?: string | null;
+        /**
+         * Main body content for this section.
+         */
+        body?: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'paragraph';
+      }
+    | {
+        /**
+         * Select an image from the media library.
+         */
+        image: number | Media;
+        /**
+         * Descriptive text for screen readers and SEO.
+         */
+        altText: string;
+        /**
+         * Optional caption displayed beneath the image.
+         */
+        caption?: string | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'image';
+      }
+    | {
+        /**
+         * The quoted text.
+         */
+        quote: string;
+        /**
+         * Optional attribution — name of the person being quoted.
+         */
+        author?: string | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'quote';
+      }
+  )[];
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -312,6 +391,44 @@ export interface PostsSelect<T extends boolean = true> {
   slug?: T;
   publishedDate?: T;
   coverImage?: T;
+  content?:
+    | T
+    | {
+        hero?:
+          | T
+          | {
+              heading?: T;
+              subheading?: T;
+              backgroundImage?: T;
+              id?: T;
+              blockName?: T;
+            };
+        paragraph?:
+          | T
+          | {
+              heading?: T;
+              body?: T;
+              id?: T;
+              blockName?: T;
+            };
+        image?:
+          | T
+          | {
+              image?: T;
+              altText?: T;
+              caption?: T;
+              id?: T;
+              blockName?: T;
+            };
+        quote?:
+          | T
+          | {
+              quote?: T;
+              author?: T;
+              id?: T;
+              blockName?: T;
+            };
+      };
   updatedAt?: T;
   createdAt?: T;
   _status?: T;

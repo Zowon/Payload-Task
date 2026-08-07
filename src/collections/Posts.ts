@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload'
+import { HeroBlock, ParagraphBlock, ImageBlock, QuoteBlock } from '../blocks'
 
 export const Posts: CollectionConfig = {
   slug: 'posts',
@@ -84,6 +85,17 @@ export const Posts: CollectionConfig = {
       relationTo: 'media',
       admin: {
         position: 'sidebar',
+      },
+    },
+
+    // ── Block-based post content ───────────────────────────────────
+    {
+      name: 'content',
+      type: 'blocks',
+      required: true,
+      blocks: [HeroBlock, ParagraphBlock, ImageBlock, QuoteBlock],
+      admin: {
+        description: 'Build the post body by adding, reordering, and removing blocks.',
       },
     },
   ],
