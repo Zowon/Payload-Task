@@ -3,9 +3,11 @@ import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
   images: {
-    localPatterns: [
+    // Cloudinary — all media uploads in both local dev and production
+    remotePatterns: [
       {
-        pathname: '/api/media/file/**',
+        protocol: 'https',
+        hostname: 'res.cloudinary.com',
       },
     ],
   },
